@@ -4,6 +4,6 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 @Dao
 interface AutomationJobDao {
-    @Query("SELECT COUNT(*) FROM automation_jobs WHERE status = 'PENDING'")
+    @Query("SELECT COUNT(*) FROM automation_jobs WHERE state = 'PENDING'")
     fun observePendingCount(): Flow<Int>
 }

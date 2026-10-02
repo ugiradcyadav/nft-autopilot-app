@@ -5,6 +5,6 @@ import com.sadhu.nftautopilot.data.database.entity.AuditLogEntity
 import kotlinx.coroutines.flow.Flow
 @Dao
 interface AuditLogDao {
-    @Query("SELECT * FROM audit_logs ORDER BY id DESC LIMIT :limit")
+    @Query("SELECT * FROM audit_logs ORDER BY timestamp DESC LIMIT :limit")
     fun observeRecent(limit: Int): Flow<List<AuditLogEntity>>
 }

@@ -29,16 +29,18 @@ import com.sadhu.nftautopilot.data.database.entity.*
 abstract class AppDatabase : RoomDatabase() {
     abstract fun walletDao(): WalletDao
     abstract fun collectionDao(): CollectionDao
-    abstract fun traitDao(): TraitDao
-    abstract fun artworkDao(): ArtworkDao
-    abstract fun metadataDao(): MetadataDao
     abstract fun nftDao(): NftDao
-    abstract fun mintJobDao(): MintJobDao
-    abstract fun listingDao(): ListingDao
-    abstract fun saleDao(): SaleDao
-    abstract fun automationJobDao(): AutomationJobDao
-    abstract fun auditLogDao(): AuditLogDao
-    abstract fun settingsDao(): SettingsDao
+
+    // TODO: Inhe tab uncomment karein jab aap inke liye .kt files bana lein
+    // abstract fun traitDao(): TraitDao
+    // abstract fun artworkDao(): ArtworkDao
+    // abstract fun metadataDao(): MetadataDao
+    // abstract fun mintJobDao(): MintJobDao
+    // abstract fun listingDao(): ListingDao
+    // abstract fun saleDao(): SaleDao
+    // abstract fun automationJobDao(): AutomationJobDao
+    // abstract fun auditLogDao(): AuditLogDao
+    // abstract fun settingsDao(): SettingsDao
 
     companion object {
         @Volatile private var INSTANCE: AppDatabase? = null

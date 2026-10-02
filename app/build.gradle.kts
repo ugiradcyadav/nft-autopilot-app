@@ -90,4 +90,7 @@ dependencies {
     implementation(libs.security.crypto)
     implementation(libs.datastore.prefs)
     debugImplementation(libs.compose.ui.tooling)
+
+    implementation("androidx.hilt:hilt-work:1.2.0")
+    ksp("androidx.hilt:hilt-compiler:1.2.0")
 }

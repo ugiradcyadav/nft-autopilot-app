@@ -9,19 +9,20 @@ import com.sadhu.nftautopilot.data.database.entity.*
     entities = [
         WalletEntity::class,
         CollectionEntity::class,
-        TraitLayerEntity::class,
-        TraitValueEntity::class,
-        TraitRuleEntity::class,
-        ArtworkEntity::class,
-        NftMetadataEntity::class,
-        NftEntity::class,
-        MintJobEntity::class,
-        ListingEntity::class,
-        SaleEntity::class,
-        AutomationJobEntity::class,
-        PricingRuleEntity::class,
-        AuditLogEntity::class,
-        SystemSettingEntity::class
+        NftEntity::class
+        // TODO: Inhe tab uncomment karein jab aap inke liye Entity classes bana lein
+        // TraitLayerEntity::class,
+        // TraitValueEntity::class,
+        // TraitRuleEntity::class,
+        // ArtworkEntity::class,
+        // NftMetadataEntity::class,
+        // MintJobEntity::class,
+        // ListingEntity::class,
+        // SaleEntity::class,
+        // AutomationJobEntity::class,
+        // PricingRuleEntity::class,
+        // AuditLogEntity::class,
+        // SystemSettingEntity::class
     ],
     version = 1,
     exportSchema = false
@@ -31,7 +32,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun collectionDao(): CollectionDao
     abstract fun nftDao(): NftDao
 
-    // TODO: Inhe tab uncomment karein jab aap inke liye .kt files bana lein
+    // TODO: Inhe tab uncomment karein jab aap inke liye DAO classes bana lein
     // abstract fun traitDao(): TraitDao
     // abstract fun artworkDao(): ArtworkDao
     // abstract fun metadataDao(): MetadataDao
@@ -58,6 +59,3 @@ abstract class AppDatabase : RoomDatabase() {
             }
     }
 }
-
-// Uncomment when NftSummaryDao is added to @Database entities list
-// abstract fun nftSummaryDao(): com.sadhu.nftautopilot.data.database.dao.NftSummaryDao

@@ -4,41 +4,10 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-
-    <!-- Outer circle ring -->
     <path
-        android:strokeColor="#00E5A0"
-        android:strokeWidth="2.5"
-        android:fillColor="#00000000"
-        android:pathData="M54,18 A36,36 0 1,1 53.99,18 Z"/>
-
-    <!-- N letter (NFT) -->
+        android:fillColor="#3DDC84"
+        android:pathData="M 0,0 L 108,0 L 108,108 L 0,108 Z" />
     <path
-        android:fillColor="#00E5A0"
-        android:pathData="M36,38 L36,70 L42,70 L42,50 L54,70 L60,70 L60,38 L54,38 L54,58 L42,38 Z"/>
-
-    <!-- Small diamond accent (token symbol) -->
-    <path
-        android:fillColor="#4FA0E8"
-        android:pathData="M66,52 L72,58 L66,64 L60,58 Z"/>
-
-    <!-- Corner circuit nodes -->
-    <circle android:fillColor="#00E5A0" android:cx="26" android:cy="26" android:r="3"/>
-    <circle android:fillColor="#00E5A0" android:cx="82" android:cy="26" android:r="3"/>
-    <circle android:fillColor="#4FA0E8" android:cx="26" android:cy="82" android:r="3"/>
-    <circle android:fillColor="#4FA0E8" android:cx="82" android:cy="82" android:r="3"/>
-
-    <!-- Circuit lines from corners -->
-    <path android:strokeColor="#00E5A0" android:strokeWidth="1.5"
-        android:fillColor="#00000000"
-        android:pathData="M26,26 L26,34 M26,26 L34,26"/>
-    <path android:strokeColor="#00E5A0" android:strokeWidth="1.5"
-        android:fillColor="#00000000"
-        android:pathData="M82,26 L82,34 M82,26 L74,26"/>
-    <path android:strokeColor="#4FA0E8" android:strokeWidth="1.5"
-        android:fillColor="#00000000"
-        android:pathData="M26,82 L26,74 M26,82 L34,82"/>
-    <path android:strokeColor="#4FA0E8" android:strokeWidth="1.5"
-        android:fillColor="#00000000"
-        android:pathData="M82,82 L82,74 M82,82 L74,82"/>
+        android:fillColor="#FFFFFF"
+        android:pathData="M 54,24 C 37.43,24 24,37.43 24,54 C 24,70.57 37.43,84 54,84 C 70.57,84 84,70.57 84,54 C 84,37.43 70.57,24 54,24 Z" />
 </vector>

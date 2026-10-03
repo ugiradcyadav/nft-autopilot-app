@@ -1,4 +1,3 @@
-@file:OptIn(androidx.compose.material.ExperimentalMaterialApi::class, androidx.compose.material3.ExperimentalMaterial3Api::class)
 package com.sadhu.nftautopilot
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
@@ -116,7 +115,6 @@ fun PlaceholderScreen(title: String, onBack: () -> Unit) {
                     androidx.compose.material3.Text(title,
                         fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
                         color = com.sadhu.nftautopilot.ui.theme.CyberBlue,
-                        fontSize = androidx.compose.ui.unit.sp(13))
                 },
                 navigationIcon = {
                     androidx.compose.material3.IconButton(onClick = onBack) {
@@ -140,7 +138,6 @@ fun PlaceholderScreen(title: String, onBack: () -> Unit) {
                 "$title\nImplemented in subsequent phase.",
                 color = com.sadhu.nftautopilot.ui.theme.TextMuted,
                 fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
-                fontSize = androidx.compose.ui.unit.sp(13),
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
         }

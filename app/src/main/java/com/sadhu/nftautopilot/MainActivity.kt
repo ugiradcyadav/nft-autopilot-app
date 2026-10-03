@@ -1,8 +1,7 @@
 package com.sadhu.nftautopilot
+import androidx.compose.ui.unit.sp
 
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons

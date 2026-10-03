@@ -25,19 +25,3 @@ interface CollectionDao {
 }
 
 @Dao
-interface TraitDao {
-    @Query("SELECT * FROM trait_layers WHERE collectionId = :cid ORDER BY displayOrder ASC")
-    suspend fun getLayersForCollection(cid: String): List<TraitLayerEntity>
-    @Query("SELECT * FROM trait_values WHERE layerId = :layerId")
-    suspend fun getValuesForLayer(layerId: String): List<TraitValueEntity>
-    @Query("SELECT * FROM trait_values WHERE id IN (:ids)")
-    suspend fun getValuesByIds(ids: List<String>): List<TraitValueEntity>
-    @Query("SELECT * FROM trait_rules WHERE collectionId = :cid")
-    suspend fun getRulesForCollection(cid: String): List<TraitRuleEntity>
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertLayer(layer: TraitLayerEntity)
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertValue(value: TraitValueEntity)
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRule(rule: TraitRuleEntity)
-}

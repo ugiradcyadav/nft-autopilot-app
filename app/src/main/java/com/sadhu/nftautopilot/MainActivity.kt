@@ -1,4 +1,3 @@
-@file:OptIn(androidx.compose.material.ExperimentalMaterialApi::class, androidx.compose.material3.ExperimentalMaterial3Api::class)
 package com.sadhu.nftautopilot
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
@@ -6,10 +5,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 
-import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 
 import android.content.Intent
 import android.os.Bundle

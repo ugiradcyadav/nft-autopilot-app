@@ -42,7 +42,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
     }
-    kotlinOptions { jvmTarget = "17" }
+    kotlinOptions {
+        jvmTarget = "17"
+        freeCompilerArgs += listOf("-opt-in=androidx.compose.material.ExperimentalMaterialApi", "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api")
+    }
     buildFeatures {
         compose = true
         buildConfig = true

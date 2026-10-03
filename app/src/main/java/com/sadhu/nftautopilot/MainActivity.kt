@@ -114,7 +114,7 @@ fun PlaceholderScreen(title: String, onBack: () -> Unit) {
                 title = {
                     androidx.compose.material3.Text(title,
                         fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
-                        color = com.sadhu.nftautopilot.ui.theme.CyberBlue,
+                        color = com.sadhu.nftautopilot.ui.theme.CyberBlue)
                 },
                 navigationIcon = {
                     androidx.compose.material3.IconButton(onClick = onBack) {

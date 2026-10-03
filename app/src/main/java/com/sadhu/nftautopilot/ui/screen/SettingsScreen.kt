@@ -81,9 +81,9 @@ class SettingsViewModel @Inject constructor(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
-    var pinataJwt by remember { mutableStateOf("") }
-    var openSeaKey by remember { mutableStateOf("") }
-    var rpcUrl by remember { mutableStateOf("https://rpc-amoy.polygon.technology") }
+    val pinataJwt by viewModel.pinataJwt.collectAsState(initial = "")
+    val openSeaKey by viewModel.openSeaKey.collectAsState(initial = "")
+    val rpcUrl by viewModel.rpcUrl.collectAsState(initial = "")
     var productionMode by remember { mutableStateOf(false) }
     var showProdConfirm by remember { mutableStateOf(false) }
 
@@ -108,7 +108,7 @@ fun SettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewMo
                 SettingsSection(title = "STORAGE (IPFS / PINATA)") {
                     OutlinedTextField(
                         value = pinataJwt,
-                        onValueChange = { pinataJwt = it },
+                        onValueChange = { viewModel.updateTempPinataJwt(it) },
                         label = { Text("Pinata JWT", fontSize = 12.sp) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth()
@@ -124,7 +124,7 @@ fun SettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewMo
                 SettingsSection(title = "MARKETPLACE (OPENSEA)") {
                     OutlinedTextField(
                         value = openSeaKey,
-                        onValueChange = { openSeaKey = it },
+                        onValueChange = { viewModel.updateTempOpenSeaKey(it) },
                         label = { Text("OpenSea API Key", fontSize = 12.sp) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth()
@@ -139,7 +139,7 @@ fun SettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewMo
             item {
                 SettingsSection(title = "BLOCKCHAIN") {
                     OutlinedTextField(
-                        value = rpcUrl, onValueChange = { rpcUrl = it },
+                        value = rpcUrl, onValueChange = { viewModel.updateTempRpcUrl(it) },
                         label = { Text("RPC URL", fontSize = 12.sp) },
                         singleLine = true, modifier = Modifier.fillMaxWidth()
                     )

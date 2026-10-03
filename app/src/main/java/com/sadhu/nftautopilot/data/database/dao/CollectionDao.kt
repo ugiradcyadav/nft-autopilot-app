@@ -23,5 +23,3 @@ interface CollectionDao {
     @Query("UPDATE collections SET contractAddress = :addr, deployTxHash = :txHash, status = 'DEPLOYED', updatedAt = :ts WHERE id = :id")
     suspend fun setDeployed(id: String, addr: String, txHash: String, ts: Long = System.currentTimeMillis())
 }
-
-@Dao

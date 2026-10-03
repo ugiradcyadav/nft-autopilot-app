@@ -1,5 +1,10 @@
 package com.sadhu.nftautopilot
 
+import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity

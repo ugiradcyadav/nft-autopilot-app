@@ -85,7 +85,7 @@ class PolygonRpcProvider @Inject constructor(
 
     suspend fun getBalanceEth(address: String): String = withContext(Dispatchers.IO) {
         val wei = web3j.ethGetBalance(address, DefaultBlockParameterName.LATEST).send().balance
-        Convert.fromWei(wei.toBigDecimal(), Convert.Unit.ETHER).toPlainString()
+        Convert.fromWei(wei.toBigDecimal(), Convert.Unit.ETHER).toString()
     }
 
     suspend fun getBalanceWei(address: String): BigInteger = withContext(Dispatchers.IO) {
@@ -163,12 +163,12 @@ class PolygonRpcProvider @Inject constructor(
         val estimatedCostWei = gasPrice.multiply(gasLimit)
 
         if (spendingLimitWei > BigInteger.ZERO && estimatedCostWei > spendingLimitWei) {
-            error("Spending limit exceeded: estimated ${estimatedCostWei.toPlainString()} wei, limit ${spendingLimitWei.toPlainString()} wei")
+            error("Spending limit exceeded: estimated ${estimatedCostWei.toString()} wei, limit ${spendingLimitWei.toString()} wei")
         }
 
         val balanceWei = getBalanceWei(fromAddress)
         if (balanceWei < estimatedCostWei) {
-            error("Insufficient balance: have ${balanceWei.toPlainString()} wei, need ${estimatedCostWei.toPlainString()} wei")
+            error("Insufficient balance: have ${balanceWei.toString()} wei, need ${estimatedCostWei.toString()} wei")
         }
 
         // Allocate nonce (Mutex-protected, atomic)

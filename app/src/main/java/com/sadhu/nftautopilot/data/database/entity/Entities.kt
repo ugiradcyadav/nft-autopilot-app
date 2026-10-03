@@ -248,3 +248,10 @@ data class SystemSettingEntity(
     val value: String,
     val updatedAt: Long = System.currentTimeMillis()
 )
+
+@Entity(tableName = "trait_rules")
+data class TraitRuleEntity(
+    @PrimaryKey val id: String,
+    val collectionId: String,
+    val traitType: String
+)

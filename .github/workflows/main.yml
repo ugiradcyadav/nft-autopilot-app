@@ -23,12 +23,24 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build APK
-      run: ./gradlew assembleDebug
+    - name: Build APK and Capture Log
+      run: ./gradlew assembleDebug > build_output.log 2>&1 || true
+
+    - name: Extract KSP Errors
+      run: |
+        echo "================ EXACT KSP ERRORS ================"
+        grep -n -i -A 2 "e: \[ksp\]" build_output.log || echo "No KSP errors found."
+        echo "=================================================="
+
+    - name: Check Build Status
+      run: |
+        if grep -q "BUILD FAILED" build_output.log; then
+          echo "Build failed. See the exact errors above."
+          exit 1
+        fi
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: app-debug-apk
         path: app/build/outputs/apk/debug/app-debug.apk
-

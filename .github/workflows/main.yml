@@ -26,16 +26,16 @@ jobs:
     - name: Build APK and Capture Log
       run: ./gradlew assembleDebug > build_output.log 2>&1 || true
 
-    - name: Extract KSP Errors
+    - name: Extract Kotlin Errors
       run: |
-        echo "================ EXACT KSP ERRORS ================"
-        grep -n -i -A 2 "e: \[ksp\]" build_output.log || echo "No KSP errors found."
-        echo "=================================================="
+        echo "================ EXACT KOTLIN ERRORS ================"
+        grep -n -i -A 2 "e: .*\.kt" build_output.log || echo "No Kotlin errors found."
+        echo "====================================================="
 
     - name: Check Build Status
       run: |
         if grep -q "BUILD FAILED" build_output.log; then
-          echo "Build failed. See the exact errors above."
+          echo "Build failed. See the exact Kotlin errors above."
           exit 1
         fi
 

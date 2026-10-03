@@ -181,7 +181,7 @@ class SeaportOrderBuilder @Inject constructor(
             // Encode as 65-byte r+s+v hex
             val r = Numeric.toHexStringNoPrefixZeroPadded(BigInteger(1, sig.r), 64)
             val s = Numeric.toHexStringNoPrefixZeroPadded(BigInteger(1, sig.s), 64)
-            val v = Integer.toHexString(sig.v.toInt()).padStart(2, '0')
+            val v = Integer.toHexString(sig.v.toString().toIntOrNull() ?: 0).padStart(2, '0')
             "0x$r$s$v"
         }
 

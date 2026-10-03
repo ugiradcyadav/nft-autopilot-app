@@ -215,7 +215,7 @@ fun HealthIndicatorRow(blockchain: Boolean, marketplace: Boolean, storage: Boole
         border = BorderStroke(1.dp, BorderDark)
     ) {
         Row(Modifier.padding(12.dp), horizontalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.fillMaxWidth()) {
+// duplicate parameter removed to fix Kotlin argument error
             HealthDot("CHAIN",  blockchain)
             HealthDot("MARKET", marketplace)
             HealthDot("IPFS",   storage)

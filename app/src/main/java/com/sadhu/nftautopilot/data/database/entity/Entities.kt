@@ -253,5 +253,7 @@ data class SystemSettingEntity(
 data class TraitRuleEntity(
     @PrimaryKey val id: String,
     val collectionId: String,
-    val traitType: String
+    val ruleType: String,
+    val triggerTraitValueId: String,
+    val targetTraitValueId: String
 )

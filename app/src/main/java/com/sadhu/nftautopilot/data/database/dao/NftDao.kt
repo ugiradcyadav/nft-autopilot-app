@@ -4,7 +4,7 @@ import com.sadhu.nftautopilot.data.database.entity.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao interface ArtworkDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT) suspend fun insert(a: ArtworkEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insert(a: ArtworkEntity)
     @Query("SELECT * FROM artworks WHERE collectionId = :cid ORDER BY tokenIndex ASC") suspend fun getByCollection(cid: String): List<ArtworkEntity>
     @Query("SELECT COUNT(*) FROM artworks WHERE sha256Hash = :hash") suspend fun countByHash(hash: String): Int
     @Query("SELECT pHashValue FROM artworks WHERE collectionId = :cid") suspend fun getPHashValues(cid: String): List<Long>
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 }
 
 @Dao interface MetadataDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT) suspend fun insert(m: NftMetadataEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insert(m: NftMetadataEntity)
     @Query("SELECT * FROM nft_metadata WHERE id = :id") suspend fun getById(id: String): NftMetadataEntity?
     @Query("UPDATE nft_metadata SET imageCid = :cid, imageUri = :uri, imageUploadStatus = 'UPLOADED', updatedAt = :ts WHERE id = :id") suspend fun setImageUploaded(id: String, cid: String, uri: String, ts: Long = System.currentTimeMillis())
     @Query("UPDATE nft_metadata SET metadataCid = :cid, metadataUri = :uri, metaUploadStatus = 'UPLOADED', updatedAt = :ts WHERE id = :id") suspend fun setMetaUploaded(id: String, cid: String, uri: String, ts: Long = System.currentTimeMillis())
@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.Flow
 }
 
 @Dao interface NftDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT) suspend fun insert(nft: NftEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insert(nft: NftEntity)
     @Query("SELECT * FROM nfts WHERE id = :id") suspend fun getById(id: String): NftEntity?
     @Query("SELECT * FROM nfts WHERE collectionId = :cid ORDER BY createdAt ASC") fun observeByCollection(cid: String): Flow<List<NftEntity>>
     @Query("SELECT * FROM nfts WHERE state = :state") suspend fun getByState(state: String): List<NftEntity>
@@ -35,7 +35,7 @@ import kotlinx.coroutines.flow.Flow
 }
 
 @Dao interface MintJobDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT) suspend fun insert(job: MintJobEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insert(job: MintJobEntity)
     @Query("SELECT * FROM mint_jobs WHERE id = :id") suspend fun getById(id: String): MintJobEntity?
     @Query("SELECT * FROM mint_jobs WHERE nftId = :nftId ORDER BY scheduledAt DESC LIMIT 1") suspend fun getLatestForNft(nftId: String): MintJobEntity?
     @Query("SELECT * FROM mint_jobs WHERE state IN ('PENDING', 'RUNNING', 'TRANSACTION_SUBMITTED', 'CONFIRMATION_PENDING', 'UNKNOWN') ORDER BY scheduledAt ASC") suspend fun getPendingJobs(): List<MintJobEntity>
@@ -45,13 +45,38 @@ import kotlinx.coroutines.flow.Flow
 }
 
 @Dao interface ListingDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT) suspend fun insert(l: ListingEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insert(l: ListingEntity)
     @Query("SELECT * FROM listings WHERE id = :id") suspend fun getById(id: String): ListingEntity?
     @Query("SELECT * FROM listings WHERE nftId = :nftId ORDER BY createdAt DESC LIMIT 1") suspend fun getLatestForNft(nftId: String): ListingEntity?
     @Query("SELECT * FROM listings WHERE state = 'LISTED'") suspend fun getActiveListing(): List<ListingEntity>
     @Query("UPDATE listings SET state = :s, orderHash = :hash, listingUrl = :url, updatedAt = :ts WHERE id = :id") suspend fun setListed(id: String, s: String = "LISTED", hash: String?, url: String?, ts: Long = System.currentTimeMillis())
     @Query("UPDATE listings SET state = :s, errorMessage = :err, updatedAt = :ts WHERE id = :id") suspend fun setError(id: String, s: String, err: String, ts: Long = System.currentTimeMillis())
     @Query("UPDATE listings SET state = :s, updatedAt = :ts WHERE id = :id") suspend fun setState(id: String, s: String, ts: Long = System.currentTimeMillis())
+}
+
+@Dao interface SaleDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insert(s: SaleEntity)
+    @Query("SELECT * FROM sales WHERE id = :id") suspend fun getById(id: String): SaleEntity?
+    @Query("SELECT SUM(CAST(netRevenueWei AS REAL)) FROM sales WHERE state = 'VERIFIED'") suspend fun getTotalNetRevenueWei(): Double?
+    @Query("UPDATE sales SET state = :s, saleTxHash = :txHash, saleBlockNumber = :block, netRevenueWei = :net, verifiedAt = :ts WHERE id = :id") suspend fun setVerified(id: String, s: String = "VERIFIED", txHash: String, block: Long, net: String, ts: Long = System.currentTimeMillis())
+    @Query("UPDATE sales SET state = :s WHERE id = :id") suspend fun setState(id: String, s: String)
+}
+
+@Dao interface AutomationJobDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insert(job: AutomationJobEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insert(jobs: List<AutomationJobEntity>)
+    @Query("SELECT * FROM automation_jobs WHERE state IN ('PENDING', 'RETRY') ORDER BY scheduledAt ASC LIMIT :limit") suspend fun getNextPending(limit: Int = 10): List<AutomationJobEntity>
+    @Query("SELECT * FROM automation_jobs WHERE state = 'RUNNING'") suspend fun getRunning(): List<AutomationJobEntity>
+    @Query("UPDATE automation_jobs SET state = :s, startedAt = :ts, updatedAt = :ts WHERE id = :id") suspend fun setRunning(id: String, s: String = "RUNNING", ts: Long = System.currentTimeMillis())
+    @Query("UPDATE automation_jobs SET state = :s, completedAt = :ts, updatedAt = :ts WHERE id = :id") suspend fun setDone(id: String, s: String, ts: Long = System.currentTimeMillis())
+    @Query("UPDATE automation_jobs SET state = :s, errorMessage = :err, retryCount = retryCount + 1, updatedAt = :ts WHERE id = :id") suspend fun setError(id: String, s: String, err: String, ts: Long = System.currentTimeMillis())
+    @Query("SELECT COUNT(*) FROM automation_jobs WHERE state = 'PENDING'") fun observePendingCount(): Flow<Int>
+}
+
+@Dao interface AuditLogDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insert(log: AuditLogEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insert(logs: List<AuditLogEntity>)
+    @Query("SELECT * FROM audit_logs ORDER BY timestamp DESC LIMIT :limit") fun observeRecent(limit: Int = 100): Flow<List<AuditLogEntity>>
 }
 
 @Dao interface SettingsDao {

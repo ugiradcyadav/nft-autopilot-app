@@ -8,6 +8,7 @@ import com.sadhu.nftautopilot.data.database.entity.*
 abstract class AppDatabase : RoomDatabase() {
     abstract fun walletDao(): WalletDao
     abstract fun collectionDao(): CollectionDao
+    abstract fun traitDao(): TraitDao
     abstract fun artworkDao(): ArtworkDao
     abstract fun metadataDao(): MetadataDao
     abstract fun nftDao(): NftDao

@@ -1,7 +1,7 @@
 package com.sadhu.nftautopilot
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.dp
 
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -28,8 +28,6 @@ import com.sadhu.nftautopilot.ui.theme.NFTAutopilotTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-import androidx.compose.ui.unit.sp
-import androidx.compose.ui.unit.dp
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,7 +1,7 @@
 package com.sadhu.nftautopilot
-
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
+
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -117,7 +117,6 @@ fun PlaceholderScreen(title: String, onBack: () -> Unit) {
                     androidx.compose.material3.Text(title,
                         fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
                         color = com.sadhu.nftautopilot.ui.theme.CyberBlue,
-                        fontSize = androidx.compose.ui.unit.sp(13))
                 },
                 navigationIcon = {
                     androidx.compose.material3.IconButton(onClick = onBack) {
@@ -141,7 +140,6 @@ fun PlaceholderScreen(title: String, onBack: () -> Unit) {
                 "$title\nImplemented in subsequent phase.",
                 color = com.sadhu.nftautopilot.ui.theme.TextMuted,
                 fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
-                fontSize = androidx.compose.ui.unit.sp(13),
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
         }
